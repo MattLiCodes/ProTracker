@@ -1,3 +1,5 @@
+# Color Palet: https://coolors.co/ef6351-f38375-fbfffe-6699cc-1b1b1e
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

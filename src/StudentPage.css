@@ -1,0 +1,32 @@
+.mainGridContainer {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.name {
+    font-size: 5vh;
+}
+
+.studentData {
+    font-size: 2vh;
+}
+
+.name , .studentData, .statusDisplay, .studentStatus, .updateStatus, .COVIDButton {
+    text-align: center;
+}
+
+.namePaper, .COVIDStatusPaper, .COVIDUpdatePaper {
+    padding: 3%;
+    width: max-content;
+}
+
+.studentData {
+    size: 10;
+}
+
+.background {
+    background-color: "aqua";
+}

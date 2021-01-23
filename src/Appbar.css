@@ -1,0 +1,5 @@
+.appBar {
+    height: max-content;
+    background-color: coral;
+    position: absolute;
+}

@@ -21,6 +21,13 @@
 .namePaper, .COVIDStatusPaper, .COVIDUpdatePaper {
     padding: 3%;
     width: max-content;
+    height: max-content;
+}
+
+.namePaper {
+    width: 70vh;
+    height: 50vh;
+    padding-bottom: 50px;
 }
 
 .studentData {

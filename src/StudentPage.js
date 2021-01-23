@@ -1,6 +1,26 @@
 import React, {Component} from 'react';
 import {Grid, Paper, Typography, Button} from '@material-ui/core';
+import {DataGrid} from '@material-ui/data-grid';
 import "./StudentPage.css";
+import Appbar from './appbar';
+
+const columns = [
+    {
+        field: 'className',
+        headerName: 'Class',
+        width: 130
+    },
+    {
+        field: 'classTime',
+        headerName: 'Period',
+        width: 130
+    },
+    {
+        field: 'COVIDDegree',
+        headerName: 'Degrees of COVID',
+        width: 130
+    }
+]
 
 class StudentPage extends Component {
     constructor(props) {
@@ -8,36 +28,44 @@ class StudentPage extends Component {
         this.state = {
             studentSpecs: {
                 'name': "Jeff",
-                'userSpecifics': "He is a person",
                 'covidStatus': false
-            }
+            },
+            rows: []
         }
     }
 
     componentDidMount = () => {
+        const rows = [{
+            'id': 0,
+            'className': "Math",
+            'classTime': "2nd Period",
+            'COVIDDegree': "3rd Degree Seperation"
+        }];
+
         this.setState({
             studentSpecs: {
                 'name': "Jeff",
-                'userSpecifics': "He is a person",
                 'covidStatus': false
-            }
+            },
+            classGrid: <DataGrid pageSize={5} rows = {rows} columns = {columns}></DataGrid>
         });
     }
 
     render() {
         return (
             <div className = "background">
+                <Appbar/>
+                
                 <Grid className = "mainGridContainer" container direction = "column" alignItems = "center" spacing = {3} justify = "center">
                     <Grid item>
                         <Paper className = "namePaper">
                             <Typography className = "name">Welcome {this.state.studentSpecs['name']} to your COVID reporting page!</Typography>
-                            <Typography className = "studentData">{this.state.studentSpecs['userSpecifics']}</Typography>
+                            {this.state.classGrid}
                         </Paper>
                     </Grid>
                     <Grid item>
                         <Paper className = "COVIDStatusPaper">
-                            <Typography className = "statusDisplay">Your COVID status</Typography>
-                            <Typography className = "studentStatus">You do {this.state.studentSpecs['covidStatus'] ? "" : "not"} have COVID!</Typography>
+                            <Typography className = "statusDisplay">Your COVID status: You do {this.state.studentSpecs['covidStatus'] ? "" : "not"} have COVID!</Typography>
                         </Paper>
                     </Grid>
                     <Grid item>
@@ -47,6 +75,7 @@ class StudentPage extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
+                
             </div>
         )
     }

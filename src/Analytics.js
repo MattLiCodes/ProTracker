@@ -25,7 +25,7 @@ export default class Analytic extends Component {
         let cases = [];
 
         for (var i = 1; i < 60; i++) {
-            let dailyCaseNumber = Math.sin(i/2) * 20 + 30;
+            let dailyCaseNumber = Math.sin(i/2) * 0.5 + 3;
             for (var j = 0; j < dailyCaseNumber; j++) {
                 cases.push(new Date(2021, 0, i, Math.floor(Math.random() * 24), Math.floor(Math.random() * 60), 0, 0));
             }

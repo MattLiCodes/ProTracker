@@ -1,5 +1,9 @@
 .appBar {
     height: max-content;
-    background-color: coral;
+    background-color: #EF6351;
     position: absolute;
+}
+
+.appButtons {
+    background-color: #f38375;
 }

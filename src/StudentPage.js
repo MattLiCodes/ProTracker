@@ -29,7 +29,7 @@ class StudentPage extends Component {
         super(props);
         this.state = {
             name: "",
-            covidStatus: "",
+            covidStatus: "not",
             rows: [],
             studentID: null
         }
@@ -40,7 +40,7 @@ class StudentPage extends Component {
             console.log(res);
         }).then(() => {
             this.setState({
-                covidStatus: "not"
+                covidStatus: ""
             });
         });
     }

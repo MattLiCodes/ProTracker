@@ -1,9 +1,9 @@
 .mainGridContainer {
   margin: 0;
   position: absolute;
-  top: 130%;
-  -ms-transform: translateY(-130%);
-  transform: translateY(-130%);
+  top: 180%;
+  -ms-transform: translateY(-180%);
+  transform: translateY(-180%);
 }
 
 .name , .studentData, .statusDisplay, .studentStatus, .updateStatus, .COVIDButton {

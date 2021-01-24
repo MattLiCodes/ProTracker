@@ -1,3 +1,21 @@
 .centered {
     margin: auto;
 }
+
+.outerPaper {
+    margin-left: 23vh;
+    margin-top: 25vh;
+    width: max-content;
+    padding: 20px;
+}
+
+.innerPaper {
+    width: max-content;
+}
+
+.dataGridPaper {
+    width: 75vh;
+    height: 94vh;
+    margin-top: 6vh;
+    margin-left: 160px;
+}

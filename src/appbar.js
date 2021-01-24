@@ -47,7 +47,7 @@ class Appbar extends Component {
                         <Grid item>
                             <Button
                                 style = {styles.appButtons}
-                                onClick = {() => {window.location.href = './SchoolLayout'}}
+                                onClick = {() => {window.location.href = './FloorPlan'}}
                             >View your school's COVID layout</Button>
                         </Grid>
                         <Grid item>

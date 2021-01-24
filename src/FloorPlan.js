@@ -8,13 +8,10 @@ export default class FloorPlan extends React.Component {
     constructor(props) {
         super(props);
 
-        axios({
-            method: "get",
-            url: "http://localhost:5000/classrooms/"
-        }).then(function(response) {
-            console.log(response);
+        axios.get("http://localhost:5000/classrooms/").then((response) => {
+            console.log(response.data);
         });
-        
+
         this.state = {
             plan : "./school1floorplan.png",
             MAP : {
@@ -36,10 +33,13 @@ export default class FloorPlan extends React.Component {
                     { name: "13", shape: "rect", coords: [331, 9, 371, 58], preFillColor:"rgba(0, 255, 0, 0.3)", fillColor:"rgba(0, 255, 0, 0.5)"},
                     { name: "14", shape: "rect", coords: [289, 9, 329,62], preFillColor:"rgba(0, 255, 0, 0.3)", fillColor:"rgba(0, 255, 0, 0.5)"},
                     { name: "15", shape: "rect", coords: [253, 66, 301,107], preFillColor:"rgba(0, 255, 0, 0.3)", fillColor:"rgba(0, 255, 0, 0.5)"},
-
                 ]
               }
         }
+    }
+
+    componentDidMount = () => {
+    
     }
     //Display an image with several "class room" object on it;
     render() {

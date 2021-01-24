@@ -46,7 +46,7 @@ class StudentPage extends Component {
     }
 
     componentDidMount = () => {
-        axios.post('http://localhost:5000/students/getStudents/getOne', {'name': "John"}).then((res) => {
+        axios.post('http://localhost:5000/students/getStudents/getOne', {'name': window.location.href.split('/')[window.location.href.split('/').length - 2]}).then((res) => {
             console.log(res.data);
             var count = 0;
             const rows = res.data.classes.map((classPeriod) => {

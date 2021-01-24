@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+* {
+    font-family:'Poppins', sans-serif;
+}
+
+.typography {
+    font-family: 'Poppins', sans-serif;
+}
+
 .appBar {
     height: max-content;
     background-color: #EF6351;

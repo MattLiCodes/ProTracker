@@ -5,6 +5,7 @@ import axios from 'axios';
 import "./StudentPage.css";
 import Appbar from './appbar';
 import './Appbar.css';
+import './App.css';
 
 const columns = [
     {

@@ -1,0 +1,4 @@
+div.mainContent {
+    width: min(90%, 1500px);
+    margin: auto;
+}

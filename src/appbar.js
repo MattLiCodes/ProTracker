@@ -41,7 +41,7 @@ class Appbar extends Component {
                         <Grid item>
                             <Button
                                 style = {styles.appButtons}
-                                onClick = {() => {window.location.href = './LineGraph'}}
+                                onClick = {() => {window.location.href = './Analytics'}}
                             >View COVID Stats</Button>
                         </Grid>
                         <Grid item>

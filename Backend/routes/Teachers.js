@@ -13,6 +13,7 @@ router.route("/add").post((req, res) => {
   const lastName = req.body.lastName;
   const email = req.body.email;
   const isCovidPositive = req.body.isCovidPositive;
+  const DOC = req.body.DOC;
   const students = req.body.teachers;
   const classes = req.body.classes;
 
@@ -22,6 +23,7 @@ router.route("/add").post((req, res) => {
     lastName,
     email,
     isCovidPositive,
+    DOC,
     students,
     classes,
   });

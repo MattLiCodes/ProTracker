@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Grid, Paper, Typography, Button} from '@material-ui/core';
 import {DataGrid} from '@material-ui/data-grid';
+import axios from 'axios';
 import "./StudentPage.css";
 import Appbar from './appbar';
 import './Appbar.css';
@@ -19,7 +20,7 @@ const columns = [
     {
         field: 'COVIDDegree',
         headerName: 'Degrees of COVID',
-        width: 130
+        width: 230
     }
 ]
 
@@ -29,30 +30,40 @@ class StudentPage extends Component {
         this.state = {
             name: "",
             covidStatus: "",
-            rows: []
+            rows: [],
+            studentID: null
         }
     }
 
     reportCovid = () => {
-        this.setState({
-            covidStatus: "do"
-        })
+        axios.post('http://localhost:5000/students/updateCovid', {'id': this.state.studentID}).then((res) => {
+            console.log(res);
+        }).then(() => {
+            this.setState({
+                covidStatus: "not"
+            });
+        });
     }
 
     componentDidMount = () => {
-        const rows = [{
-            'id': 0,
-            'className': "Math",
-            'classTime': "2nd Period",
-            'COVIDDegree': "3rd Degree Seperation"
-        }];
-
-        this.setState({
-            studentSpecs: {
-                'name': "Jeff",
-                'covidStatus': false
-            },
-            classGrid: <DataGrid pageSize={5} rows = {rows} columns = {columns}></DataGrid>
+        axios.post('http://localhost:5000/students/getStudents/getOne', {'name': "John"}).then((res) => {
+            console.log(res.data);
+            var count = 0;
+            const rows = res.data.classes.map((classPeriod) => {
+                count++;
+                return {
+                    'id': count,
+                    'className': classPeriod.className,
+                    'classTime': "Period " + count,
+                    'COVIDDegree': res.data.DOC
+                }
+            });
+            this.setState({
+                name: res.data.firstName,
+                classGrid: <DataGrid pageSize={5} rows = {rows} columns = {columns}></DataGrid>,
+                covidStatus: res.data.isCovidPositive ? "" : "not",
+                studentID: res.data._id
+            });
         });
     }
 
@@ -76,7 +87,7 @@ class StudentPage extends Component {
                     <Grid item>
                         <Paper className = "COVIDUpdatePaper">
                             <Typography className = "updateStatus">Report your COVID status</Typography>
-                            <Button style = {{backgroundColor: "#EF6351"}} className = "COVIDButton">Click if you have COVID!</Button>
+                            <Button style = {{backgroundColor: "#EF6351"}} className = "COVIDButton" onClick = {this.reportCovid}>Click if you have COVID!</Button>
                         </Paper>
                     </Grid>
                 </Grid>

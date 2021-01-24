@@ -8,6 +8,7 @@ const teacherSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   isCovidPositive: { type: Boolean, required: true },
+  DOC: { type: String, required: true },
   students: { type: Array, required: true },
   classes: { type: Array, required: true },
 });

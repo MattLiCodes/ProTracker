@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+let Student = require("../Backend/models/student.model");
 
 require("dotenv").config();
 

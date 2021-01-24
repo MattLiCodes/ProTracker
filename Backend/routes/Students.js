@@ -1,5 +1,15 @@
 const router = require("express").Router();
 let Student = require("../models/student.model");
+let Teacher = require("../models/teacher.model");
+let Class = require("../models/class.model");
+const mongoose = require("mongoose");
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
+
 router.route("/").get((req, res) => {
   Student.find()
     .then((Students) => {
@@ -14,6 +24,7 @@ router.route("/add").post((req, res) => {
   const lastName = req.body.lastName;
   const email = req.body.email;
   const isCovidPositive = req.body.isCovidPositive;
+  const DOC = req.body.DOC;
   const teachers = req.body.teachers;
   const classes = req.body.classes;
 
@@ -23,6 +34,7 @@ router.route("/add").post((req, res) => {
     lastName,
     email,
     isCovidPositive,
+    DOC,
     teachers,
     classes,
   });
@@ -35,18 +47,148 @@ router.route("/add").post((req, res) => {
 
 router.route("/:id").get((req, res) => {
   Student.findById(req.params.id)
-    .then((request) => res.json(request))
-    .catch((err) => res.status(400).json("Error" + err));
-});
-
-router.route("/spread").get((req, res) => {
-  Student.find()
-    .then((Students) => {
-      res.json(Students);
-      const data = JSON.stringify(Students);
-      console.log(data);
+    .then((request) => {
+      res.json(request);
+      const data = request;
+      const classes = data["classes"];
+      for (let j = 0; j < classes.length; j++) {
+        Class.find({ classId: classes[j]["classId"] }).then((response) => {
+          const students = response[0];
+          for (let k = 0; k < students["students"].length; k++) {
+            Student.update(
+              {
+                studentId: students["students"][k]["studentId"],
+                DOC: { $gt: 0 },
+              },
+              { DOC: 1 },
+              function (err, docs) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  // console.log("Updated Docs: ", docs);
+                }
+              }
+            );
+            Student.find({
+              studentId: students["students"][k]["studentId"],
+            }).then((res) => {
+              const classess = res[0]["classes"];
+              for (let i = 0; i < classess.length; i++) {
+                Class.find({ classId: classess[i]["classId"] }).then(
+                  (result) => {
+                    const studs = result[0];
+                    for (let j = 0; j < studs["students"].length; j++) {
+                      Student.update(
+                        {
+                          studentId: studs["students"][j]["studentId"],
+                          DOC: { $gt: 1 },
+                        },
+                        { DOC: 2 },
+                        function (err, docs) {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            // console.log("Updated Docs: ", docs);
+                          }
+                        }
+                      );
+                    }
+                  }
+                );
+              }
+            });
+          }
+        });
+      }
+      const teachers = data["teachers"];
+      for (let i = 0; i < teachers.length; i++) {
+        Teacher.update(
+          { teacherId: teachers[i].teacherId, DOC: { $gt: 0 } },
+          { DOC: 1 },
+          function (err, docs) {
+            if (err) {
+              console.log(err);
+            } else {
+              // console.log("Updated Docs: ", docs);
+            }
+          }
+        );
+        Teacher.find({
+          teacherId: teachers[i]["teacherId"],
+        }).then((res) => {
+          const classess = res[0]["classes"];
+          for (let i = 0; i < classess.length; i++) {
+            Class.find({ classId: classess[i]["classId"] }).then((result) => {
+              const studs = result[0];
+              for (let j = 0; j < studs["students"].length; j++) {
+                Student.update(
+                  {
+                    studentId: studs["students"][j]["studentId"],
+                    DOC: { $gt: 1 },
+                  },
+                  { DOC: 2 },
+                  function (err, docs) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      // console.log("Updated Docs: ", docs);
+                    }
+                  }
+                );
+                Student.find({
+                  studentId: studs["students"][j]["studentId"],
+                }).then((result) => {
+                  const studs = result[0];
+                  const teachers = studs["teachers"];
+                  for (let i = 0; i < teachers.length; i++) {
+                    Teacher.update(
+                      { teacherId: teachers[i].teacherId, DOC: { $gt: 1 } },
+                      { DOC: 2 },
+                      function (err, docs) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          // console.log("Updated Docs: ", docs);
+                        }
+                      }
+                    );
+                    Teacher.find({
+                      teacherId: teachers[i]["teacherId"],
+                    }).then((res) => {
+                      const classess = res[0]["classes"];
+                      for (let i = 0; i < classess.length; i++) {
+                        Class.find({ classId: classess[i]["classId"] }).then(
+                          (result) => {
+                            const studs = result[0];
+                            for (let j = 0; j < studs["students"].length; j++) {
+                              Student.update(
+                                {
+                                  studentId: studs["students"][j]["studentId"],
+                                  DOC: { $gt: 2 },
+                                },
+                                { DOC: 3 },
+                                function (err, docs) {
+                                  if (err) {
+                                    console.log(err);
+                                  } else {
+                                    console.log("Updated Docs: ", docs);
+                                  }
+                                }
+                              );
+                            }
+                          }
+                        );
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
     })
-    .catch((err) => res.status(400).json("Error:" + err));
+    .catch((err) => res.status(400).json("Error" + err));
 });
 
 module.exports = router;
